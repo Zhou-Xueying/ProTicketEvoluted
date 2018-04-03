@@ -2,6 +2,8 @@ package edu.nju.proticket.dao;
 
 import edu.nju.proticket.model.Member;
 
+import java.util.List;
+
 public interface MemberDao {
 
     /**
@@ -76,5 +78,11 @@ public interface MemberDao {
      * @return
      */
     public boolean levelUp(int memberId);
+
+    /**
+     *
+     * @return
+     */
+    public List<Member> getMembers();
 
 }

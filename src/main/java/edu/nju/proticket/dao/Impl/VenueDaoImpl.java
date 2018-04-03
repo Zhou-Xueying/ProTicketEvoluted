@@ -77,4 +77,8 @@ public class VenueDaoImpl implements VenueDao {
             return (Venue) query.list().get(0);
         return null;
     }
+
+    public List<Venue> getVenues() {
+        return baseDao.getAllList(Venue.class);
+    }
 }

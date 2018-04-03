@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class CurrentUserController {
@@ -58,7 +60,7 @@ public class CurrentUserController {
         return "login/delete_success";
     }
 
-    @RequestMapping(value = "updateName", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateName", method = RequestMethod.POST)
     public String updateName(@RequestParam("name")String name, HttpSession session, Model model){
         if(session.getAttribute(CURRENT_USER_ID)!=null) {
             Member member = memberService.getProfile((Integer) session.getAttribute(CURRENT_USER_ID));
@@ -68,5 +70,10 @@ public class CurrentUserController {
             model.addAttribute("member", member);
         }
         return "mypage";
+    }
+
+    @RequestMapping(value = "/getMembers", method = RequestMethod.GET)
+    public @ResponseBody List<Member> getMembers(){
+        return memberService.getMembers();
     }
 }

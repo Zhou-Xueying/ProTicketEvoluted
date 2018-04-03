@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: ThinkPad
-  Date: 2018/4/2
-  Time: 7:05
+  Date: 2018/4/4
+  Time: 0:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -53,15 +53,13 @@
     </div><!-- /.container-fluid -->
 </nav>
 <div class="content container" style="margin-top: 100px;margin-bottom: 100px; max-width:1300px;">
-    <div class="col-md-offset-2">
+    <div class="col-md-offset-4">
         <table border="1" style="margin-top: 50px; font-size: 20px; text-align: center;" id="table">
             <tr style="font-size: 25px; font-weight: 100;">
-                <th>场馆编号</th>
-                <th>名称</th>
-                <th>地址</th>
-                <th>规格</th>
-                <th>电话</th>
-                <th>操作</th>
+                <th>会员编号</th>
+                <th>会员名</th>
+                <th>消费总额</th>
+                <th>等级</th>
             </tr>
         </table>
     </div>
@@ -78,55 +76,37 @@
     $(document).ready(function () {
         console.log("document.ready");
         $.ajax({
-            url:'getApplications.form',
+            url:'getMembers.form',
             dataType:'json',
             type:'GET',
             success:function (data) {
                 console.log("success");
                 for(var i=0;i<data.length;i++) {
-                    var venueId = data[i].venueid;
-                    var venueName = data[i].venuename;
-                    var address = data[i].address;
-                    var size = data[i].size;
-                    var phone = data[i].phone;
-                    appendDiv(venueId,venueName,address,size,phone);
+                    var memberId = data[i].userid;
+                    var memberName = data[i].username;
+                    var consumptions = data[i].consumptions;
+                    var level = data[i].level;
+                    appendDiv(memberId,memberName,consumptions,level);
                 }
             }
         });
-        function appendDiv(venueId,venueName,address,size,phone){
-            console.log("appendDiv");
+        function appendDiv(memberId,memberName,consumptions,level){
+
             var table = document.getElementById("table");
             var tr = document.createElement("tr");
             var td1 = document.createElement("td");
-            td1.innerHTML = venueId;
+            td1.innerHTML = memberId;
             var td2 = document.createElement("td");
-            td2.innerHTML = venueName;
+            td2.innerHTML = memberName;
             var td3 = document.createElement("td");
-            td3.innerHTML = address;
+            td3.innerHTML = consumptions;
             var td4 = document.createElement("td");
-            td4.innerHTML = size;
-            var td5 = document.createElement("td");
-            td5.innerHTML = phone;
-            var td6 = document.createElement("td");
-            var a1 = document.createElement("a");
-            a1.setAttribute("class","btn btn-primary");
-            a1.innerHTML = "通过";
-            console.log(venueId);
-            var onclick1 =  "alert('审批通过'); window.location.href='http://localhost:8090/passVenueApplication.form?venueId="+venueId+"';";
-            a1.setAttribute("onclick", onclick1);
-            var a2 = document.createElement("a");
-            a2.setAttribute("class","btn btn-danger");
-            a2.innerHTML = "驳回";
-            var onclick2 =  "alert('已驳回'); window.location.href='http://localhost:8090/refuseVenueApplication.form?venueId="+venueId+"';";
-            a2.setAttribute("onclick",onclick2);
-            td6.appendChild(a1);
-            td6.appendChild(a2);
+            td4.innerHTML = level;
+
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
-            tr.appendChild(td5);
-            tr.appendChild(td6);
             table.appendChild(tr);
         }
     });

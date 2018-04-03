@@ -60,4 +60,10 @@ public interface VenueService {
      * @return
      */
     public Venue getConditionMinus1(int venueId);
+
+    /**
+     *
+     * @return
+     */
+    public List<Venue> getVenues();
 }

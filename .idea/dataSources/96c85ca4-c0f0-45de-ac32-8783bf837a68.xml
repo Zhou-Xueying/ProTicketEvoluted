@@ -53,6 +53,7 @@
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="31" parent="20" name="title">
       <Position>2</Position>
@@ -102,18 +103,22 @@
     <column id="40" parent="20" name="price2">
       <Position>11</Position>
       <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="41" parent="20" name="price3">
       <Position>12</Position>
       <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="42" parent="20" name="price4">
       <Position>13</Position>
       <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="43" parent="20" name="price5">
       <Position>14</Position>
       <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="44" parent="20" name="imgurl">
       <Position>15</Position>
@@ -355,7 +360,27 @@
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="92" parent="25" name="PRIMARY">
+    <column id="92" parent="25" name="eventcount">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="93" parent="25" name="ordercount">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="94" parent="25" name="ticketcount">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="95" parent="25" name="income">
+      <Position>11</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="96" parent="25" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>venueid</ColNames>
       <Primary>1</Primary>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: ThinkPad
-  Date: 2018/4/2
-  Time: 7:05
+  Date: 2018/4/4
+  Time: 0:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -58,10 +58,10 @@
             <tr style="font-size: 25px; font-weight: 100;">
                 <th>场馆编号</th>
                 <th>名称</th>
-                <th>地址</th>
-                <th>规格</th>
-                <th>电话</th>
-                <th>操作</th>
+                <th>活动总数</th>
+                <th>完成订单总数</th>
+                <th>售票总数</th>
+                <th>总收入</th>
             </tr>
         </table>
     </div>
@@ -78,7 +78,7 @@
     $(document).ready(function () {
         console.log("document.ready");
         $.ajax({
-            url:'getApplications.form',
+            url:'getVenues.form',
             dataType:'json',
             type:'GET',
             success:function (data) {
@@ -86,14 +86,15 @@
                 for(var i=0;i<data.length;i++) {
                     var venueId = data[i].venueid;
                     var venueName = data[i].venuename;
-                    var address = data[i].address;
-                    var size = data[i].size;
-                    var phone = data[i].phone;
-                    appendDiv(venueId,venueName,address,size,phone);
+                    var eventCount = data[i].eventcount;
+                    var orderCount = data[i].ordercount;
+                    var ticketCount = data[i].ticketcount;
+                    var income = data[i].income;
+                    appendDiv(venueId,venueName,eventCount,orderCount,ticketCount,income);
                 }
             }
         });
-        function appendDiv(venueId,venueName,address,size,phone){
+        function appendDiv(venueId,venueName,eventCount,orderCount,ticketCount,income){
             console.log("appendDiv");
             var table = document.getElementById("table");
             var tr = document.createElement("tr");
@@ -102,25 +103,13 @@
             var td2 = document.createElement("td");
             td2.innerHTML = venueName;
             var td3 = document.createElement("td");
-            td3.innerHTML = address;
+            td3.innerHTML = eventCount;
             var td4 = document.createElement("td");
-            td4.innerHTML = size;
+            td4.innerHTML = orderCount;
             var td5 = document.createElement("td");
-            td5.innerHTML = phone;
+            td5.innerHTML = ticketCount;
             var td6 = document.createElement("td");
-            var a1 = document.createElement("a");
-            a1.setAttribute("class","btn btn-primary");
-            a1.innerHTML = "通过";
-            console.log(venueId);
-            var onclick1 =  "alert('审批通过'); window.location.href='http://localhost:8090/passVenueApplication.form?venueId="+venueId+"';";
-            a1.setAttribute("onclick", onclick1);
-            var a2 = document.createElement("a");
-            a2.setAttribute("class","btn btn-danger");
-            a2.innerHTML = "驳回";
-            var onclick2 =  "alert('已驳回'); window.location.href='http://localhost:8090/refuseVenueApplication.form?venueId="+venueId+"';";
-            a2.setAttribute("onclick",onclick2);
-            td6.appendChild(a1);
-            td6.appendChild(a2);
+            td6.innerHTML = income;
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
@@ -133,3 +122,4 @@
 </script>
 </body>
 </html>
+

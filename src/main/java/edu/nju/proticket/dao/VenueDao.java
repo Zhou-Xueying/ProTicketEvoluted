@@ -61,4 +61,10 @@ public interface VenueDao {
      * @return
      */
     public Venue getConditionMinus1(int venueId);
+
+    /**
+     *
+     * @return
+     */
+    public List<Venue> getVenues();
 }

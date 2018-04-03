@@ -2,9 +2,11 @@ package edu.nju.proticket.controller;
 
 import edu.nju.proticket.model.Member;
 import edu.nju.proticket.model.Order;
+import edu.nju.proticket.model.Venue;
 import edu.nju.proticket.service.AccountService;
 import edu.nju.proticket.service.MemberService;
 import edu.nju.proticket.service.OrderService;
+import edu.nju.proticket.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,8 @@ public class PayController {
     private OrderService orderService;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private VenueService venueService;
 
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
     public String pay(HttpServletRequest request){
@@ -44,7 +48,11 @@ public class PayController {
             member.setConsumptions(member.getConsumptions()+price);
             member.setLevel(memberService.level(member.getConsumptions()));
             memberService.updateProfile(member);
-
+            Venue venue = venueService.getVenueInfo(order.getVenueid());
+            venue.setOrdercount(venue.getOrdercount()+1);
+            venue.setTicketcount(venue.getOrdercount()+order.getTicketnumber());
+            venue.setIncome(venue.getIncome()+order.getTotalPrice());
+            venueService.updateVenueInfo(venue);
             return"pay/pay_success";
         }
         return "pay/pay_failure";
@@ -106,7 +114,11 @@ public class PayController {
             member.setConsumptions(member.getConsumptions()-price);
             member.setLevel(memberService.level(member.getConsumptions()));
             memberService.updateProfile(member);
-
+            Venue venue = venueService.getVenueInfo(order.getVenueid());
+            venue.setOrdercount(venue.getOrdercount()-1);
+            venue.setTicketcount(venue.getOrdercount()-order.getTicketnumber());
+            venue.setIncome(venue.getIncome()-order.getTotalPrice());
+            venueService.updateVenueInfo(venue);
             return"pay/refund_success";
         }
         return "pay/refund_failure";

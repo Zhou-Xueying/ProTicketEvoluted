@@ -5,6 +5,7 @@ import edu.nju.proticket.utils.ServiceException;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.List;
 
 public interface MemberService {
 
@@ -104,6 +105,12 @@ public interface MemberService {
      * @return
      */
     public double discount(int level);
+
+    /**
+     *
+     * @return
+     */
+    public List<Member> getMembers();
 
 
 }

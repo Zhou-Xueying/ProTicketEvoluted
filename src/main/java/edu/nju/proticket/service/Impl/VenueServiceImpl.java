@@ -45,4 +45,8 @@ public class VenueServiceImpl implements VenueService {
     public Venue getConditionMinus1(int venueId) {
         return venueDao.getConditionMinus1(venueId);
     }
+
+    public List<Venue> getVenues() {
+        return venueDao.getVenues();
+    }
 }

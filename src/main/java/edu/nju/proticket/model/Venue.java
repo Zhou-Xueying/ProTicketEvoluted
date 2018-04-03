@@ -12,6 +12,10 @@ public class Venue {
     private String address;
     private String phone;
     private int condition;
+    private int eventcount;
+    private int ordercount;
+    private int ticketcount;
+    private double income;
 
     @Id
     @Column(name = "venueid")
@@ -81,6 +85,46 @@ public class Venue {
 
     public void setCondition(int condition) {
         this.condition = condition;
+    }
+
+    @Basic
+    @Column(name = "eventcount")
+    public int getEventcount() {
+        return eventcount;
+    }
+
+    public void setEventcount(int eventcount) {
+        this.eventcount = eventcount;
+    }
+
+    @Basic
+    @Column(name = "ordercount")
+    public int getOrdercount() {
+        return ordercount;
+    }
+
+    public void setOrdercount(int ordercount) {
+        this.ordercount = ordercount;
+    }
+
+    @Basic
+    @Column(name = "ticketcount")
+    public int getTicketcount() {
+        return ticketcount;
+    }
+
+    public void setTicketcount(int ticketcount) {
+        this.ticketcount = ticketcount;
+    }
+
+    @Basic
+    @Column(name = "income")
+    public double getIncome() {
+        return income;
+    }
+
+    public void setIncome(double income) {
+        this.income = income;
     }
 
     @Override

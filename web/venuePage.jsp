@@ -63,15 +63,16 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">缇可网，您的票务专家 <span class="sr-only">(current)</span></a></li>
             </ul>
-            <%
-                request.setCharacterEncoding("UTF-8");
-            %>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                         ${sessionScope.CURRENT_VENUE_NAME}<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="toVenuePage.form?venueId=${sessionScope.CURRENT_VENUE_ID}">场馆主页</a></li>
+                        <li><a href="toCheckTicket.form">检票入口</a></li>
+                        <li><a href="toVenueStatistics.form">我的业绩</a></li>
+                        <li role="separator" class="divider"></li>
                         <li>
                             <a href="#" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">

@@ -1,7 +1,9 @@
 package edu.nju.proticket.controller;
 
 import edu.nju.proticket.model.Event;
+import edu.nju.proticket.model.Venue;
 import edu.nju.proticket.service.EventService;
+import edu.nju.proticket.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,8 @@ public class EventDisplayController {
 
     @Autowired
     private EventService eventService;
+    @Autowired
+    private VenueService venueService;
 
     @RequestMapping(value = "/toDisplay", method = RequestMethod.GET)
     public String toDisplay(@RequestParam("type") String type){
@@ -92,6 +96,9 @@ public class EventDisplayController {
         event.setCondition(0);
         event.setImgUrl("static/images/nopic.jpg");
         eventService.createEvent(event);
+        Venue venue = venueService.getVenueInfo((Integer) session.getAttribute(CURRENT_VENUE_ID));
+        venue.setEventcount(venue.getEventcount()+1);
+        venueService.updateVenueInfo(venue);
         return "venue/create_success";
     }
 }

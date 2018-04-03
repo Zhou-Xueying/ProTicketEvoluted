@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -165,5 +166,9 @@ public class MemberServiceImpl implements MemberService {
             default:
                     return 1.00;
         }
+    }
+
+    public List<Member> getMembers() {
+        return memberDao.getMembers();
     }
 }

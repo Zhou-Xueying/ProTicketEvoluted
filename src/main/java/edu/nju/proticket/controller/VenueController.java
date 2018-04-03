@@ -9,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
+import java.util.List;
 
 @Controller
 public class VenueController {
@@ -67,6 +69,10 @@ public class VenueController {
         venue.setPhone(request.getParameter("phone"));
         venue.setPassword(request.getParameter("password"));
         venue.setCondition(0);
+        venue.setEventcount(0);
+        venue.setOrdercount(0);
+        venue.setTicketcount(0);
+        venue.setIncome(0);
         venueService.register(venue);
         request.setAttribute("venueId", venue.getVenueid());
         return "venue/register_success";
@@ -108,5 +114,17 @@ public class VenueController {
         venue.setCondition(0);
         venueService.updateVenueInfo(venue);
         return "venue/update_success";
+    }
+
+    @RequestMapping(value = "/toVenueStatistics", method = RequestMethod.GET)
+    public String toStatistics(Model model, HttpSession session){
+        Venue venue = venueService.getVenueInfo((Integer)session.getAttribute(CURRENT_VENUE_ID));
+        model.addAttribute("venue",venue);
+        return "venueStatistics";
+    }
+
+    @RequestMapping(value = "/getVenues", method = RequestMethod.GET)
+    public @ResponseBody List<Venue> getVenues(){
+        return venueService.getVenues();
     }
 }

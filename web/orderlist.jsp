@@ -174,7 +174,7 @@
         }else if(status===-1){
             span5.innerHTML = "订单状态：已取消";
         }else{
-            span5.innerHTML = "订单状态：已过期";
+            span5.innerHTML = "订单状态：已使用";
         }
         p5.appendChild(span5);
         if(status===0){
