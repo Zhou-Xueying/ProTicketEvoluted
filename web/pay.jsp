@@ -20,7 +20,8 @@
     <br/>
     <p><span style="font-size:20px;">待支付款项：缇可网订单</span></p>
     <p><span style="font-size:20px;">待支付金额：${order.totalPrice}</span></p>
-    <p><span style="font-size:20px;" id="timer"></span></p>
+    <%--<p><span style="font-size:20px;" id="timer"></span></p>--%>
+    <p><span style="font-size:20px;">请在60秒内完成支付，逾期交易将自动关闭</span></p>
     <br/><br/>
     <form class="form-horizontal" method="POST" action="pay.form">
         <input type="hidden" name="orderId" value="${order.orderid}" required autofocus>

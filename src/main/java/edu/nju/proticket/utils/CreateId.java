@@ -12,6 +12,6 @@ public class CreateId {
 
     public static int createVenueId(){
         count ++;
-        return 1200000 + count;
+        return 1200503 + count;
     }
 }

@@ -34,13 +34,23 @@ public class PayController {
 
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
     public String pay(HttpServletRequest request){
+        String orderId = request.getParameter("orderId");
+        Order order = orderService.getOrderInfo(orderId);
+        Long now = System.currentTimeMillis();
+        Timestamp timestamp = order.getTimestamp();
+        System.out.println(timestamp);
+        long time = timestamp.getTime();
+        System.out.println(time);
+        System.out.println(now);
+        long dateDiff= now - time;
+        if(dateDiff > 1000*60){
+            return "redirect:/timeOver.form?orderId="+orderId;
+        }
         int accountId = Integer.valueOf(request.getParameter("accountId"));
         String password = request.getParameter("password");
         double price = Double.valueOf(request.getParameter("price"));
         if(accountService.pay(accountId, password, price)){
             //change order status
-            String orderId = request.getParameter("orderId");
-            Order order = orderService.getOrderInfo(orderId);
             order.setCondition(1);
             orderService.updateOrder(order);
             //member consumptions up && level up

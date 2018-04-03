@@ -25,6 +25,7 @@ public class Order {
     private Integer seat4Id;
     private Integer seat5Id;
     private Integer seat6Id;
+    private Timestamp timestamp;
 
     @Id
     @Column(name = "orderid")
@@ -195,6 +196,16 @@ public class Order {
 
     public void setSeat6Id(Integer seat6Id) {
         this.seat6Id = seat6Id;
+    }
+
+    @Basic
+    @Column(name = "timestamp")
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
