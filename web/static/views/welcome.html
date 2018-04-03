@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link href="static/images/icon.png" rel="icon"/>
+    <title>缇可网，您的票务专家</title>
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <!--<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--[endif]-->
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel="stylesheet">
+    <link href='https://daneden.github.io/animate.css/animate.min.css' rel="stylesheet">
+    <link href="static/css/cover.css" rel="stylesheet">
+    <link href="static/css/signin.css" rel="stylesheet">
+	<link href="static/css/sidebar.css" rel="stylesheet">
+	<style type="text/css" media="screen">
+		html, body {
+			width: 100%;
+		}
+		ul li {
+			list-style: none;
+		}
+		*{
+			margin:0;
+			padding:0;
+		}
+		#box {
+			width: 1200px;
+			margin: 20px auto;
+		}		
+		.slide {
+			height: 500px;
+			position: relative;
+		}
+		.slide ul {
+			height: 100%;
+		}
+		.slide li {
+			position: absolute;
+			left:200px;
+			top:0;
+		}
+		.slide li img{
+			width: 100%;
+		}
+		.arraw {
+			opacity: 0;
+		}
+		.arraw a {
+			width: 70px;
+			height: 110px;
+			display: block;
+			position: absolute;
+			top: 50%;
+			margin-top: -55px;
+			z-index: 999;
+		}
+		.next {
+			background: url(static/images/right.png) no-repeat;
+			right: -10px;
+			/*opacity: .5;*/
+			/*filter: alpha(opacity=50);*/
+		}
+		.prev {
+			background: url(static/images/left.png) no-repeat;
+			left: -10px;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="color:#fff">ProTicket</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">缇可网，您的票务专家 <span class="sr-only">(current)</span></a></li>
+            
+            </ul>
+            <form class="navbar-form navbar-left" method="post" action="http://127.0.0.1:8000/search">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <input name="searchType" id="searchType" value="演出" hidden>
+                        <button type="button" class="btn btn-default" tabindex="-1" id='searchTypeButton'>演出</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" tabindex="-1" >
+                            <span class="caret"></span>
+                            <span class="sr-only">切换下拉菜单</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="document.getElementById('searchType').value='用户'
+                                   document.getElementById('searchTypeButton').innerHTML='用户'">演出</a></li>
+                            <li><a href="#" onclick="document.getElementById('searchType').value='标签'
+                                    document.getElementById('searchTypeButton').innerHTML='标签'">场馆</a></li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <input type="text" class="form-control" aria-label="..." name="keyword">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>
+                    </span>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="#" data-toggle="modal" data-target="#loginModal">登录</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#signinModal">注册</a></li>
+                            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="content container" style="margin-top: 65px;margin-bottom: 100px; max-width:1600px;">
+	<div id="wrapper">
+		<div class="overlay"></div>
+		<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation" style=" font-size:20px;">
+			<ul class="nav sidebar-nav">
+				<li class="sidebar-brand"><a href="#">Bootstrap 3</a></li>
+				<!-- <li style="line-height:30px"><a href="#">首页</a></li> -->
+				<li style="line-height:30px"><a href="#">演唱会</a></li>
+				<li style="line-height:30px"><a href="#">话剧歌剧</a></li>
+				<li style="line-height:30px"><a href="#">体育赛事</a></li>
+				<li style="line-height:30px"><a href="#">音乐会</a></li>
+				<li style="line-height:30px"><a href="#">舞蹈芭蕾</a></li>
+				<li style="line-height:30px"><a href="#">展览休闲</a></li>
+				<li style="line-height:30px"><a href="#">曲艺杂谈</a></li>
+			</ul>
+		</nav>
+		
+		<div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+        </div>
+    </div>
+
+	<div id="box">
+		<div class="slide">
+			<ul>
+				<li class="revolve-li"><a href="#"><img src="static/images/1.jpg" alt=""></a></li>
+				<li class="revolve-li"><a href="#"><img src="static/images/2.jpg" alt=""></a></li>
+				<li class="revolve-li"><a href="#"><img src="static/images/3.jpg" alt=""></a></li>
+				<li class="revolve-li"><a href="#"><img src="static/images/5.jpg" alt=""></a></li>
+				<li class="revolve-li"><a href="#"><img src="static/images/6.jpg" alt=""></a></li>
+			</ul>
+			<div class="arraw">
+				<a href="javascript:;" class="next"></a>
+				<a href="javascript:;" class='prev'></a>
+			</div>
+		</div>
+	</div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">登录</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="POST" action="http://127.0.0.1:8000/login">
+                        <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">邮箱</label>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-4 control-label">密码</label>
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4 col-md-offset-4">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="remember" > 记住我</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button type="submit" class="btn btn-ld btn-primary btn-block">登录</button>
+                                <a class="btn btn-link" href="http://127.0.0.1:8000/password/reset">忘记密码？</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#signinModal">新用户？点我注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">注册</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="POST" action="http://127.0.0.1:8000/register">
+                        <div class="form-group">
+                            <label for="name" class="col-md-4 control-label">用户名</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">邮箱</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="" required>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-4 control-label">密码</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password" required>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">确认密码</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button type="submit" class="btn btn-ld btn-primary btn-block">
+                                    注册
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">已有账号？点我登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align: center; margin: 10px;">
+    <div class="container">
+        <p>Copyright © 2018 ProTicket NJU Software</p>
+    </div>
+</footer>
+<!-- Bootstrap core JavaScript-->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="static/jquery/jquery.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/static/jquery/jquery.js"><\/script>')</script>
+<script src="static/bootstrap/js/bootstrap.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+ <script type="text/javascript">
+    $(document).ready(function () {
+        var trigger = $('.hamburger'),
+        overlay = $('.overlay'),
+        isClosed = false;
+
+        trigger.click(function () {
+            hamburger_cross();
+        });
+
+        function hamburger_cross() {
+
+            if (isClosed == true) {
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+            } else {
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+            }
+        }
+
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('#wrapper').toggleClass('toggled');
+        });
+    });
+</script>
+<script>
+var box = document.querySelector('#box');
+var slide = document.querySelector('.slide');
+var arraw = document.querySelector('.arraw');
+var lis = document.querySelectorAll('.revolve-li');
+var json = [  //  包含了5张图片里面所有的样式
+	{   //  1
+		width:400,
+		top:20,
+		left:100,
+		opacity:20,
+		z:2,
+		id:1
+	},
+	{  // 2
+		width:600,
+		top:70,
+		left:50,
+		opacity:60,
+		z:3,
+		id:2
+	},
+	{   // 3
+		width:800,
+		top:100,
+		left:200,
+		opacity:100,
+		z:4,
+		id:3
+	},
+	{  // 4
+		width:600,
+		top:70,
+		left:550,
+		opacity:60,
+		z:3,
+		id:4
+	},
+	{   //5
+		width:400,
+		top:20,
+		left:650,
+		opacity:20,
+		z:2,
+		id:5
+	}
+];
+box.addEventListener('mouseover', function(){
+// console.log('aaa')
+animate(arraw, {opacity: 100});
+});
+box.addEventListener('mouseout', function(){
+// console.log('aaa')
+animate(arraw, {opacity: 0});
+});
+
+var next = document.querySelector('.next');
+var prev = document.querySelector('.prev');
+var timer = null;
+var flag = true;
+next.addEventListener('click', function(){
+// alert('next');
+// console.log(json);
+// console.log('================')
+clearInterval(timer);
+if(flag == true){
+move(true);
+flag = false;
+}
+//console.log(json);
+});
+next.addEventListener('mouseleave', function(){
+
+clearInterval(timer);
+//alert('next')
+run();
+//console.log(json);
+
+});
+prev.addEventListener('click', function(){
+clearInterval(timer);
+// alert('prev')
+if(flag == true){
+move(false);
+flag = false;
+}
+});
+prev.addEventListener('mouseleave', function(){
+// alert('prev')
+// clearInterva(timer);
+run();
+});
+
+move();
+run();
+function run(){
+clearInterval(timer);
+timer = setInterval(function(){
+// console.log('run')
+if(flag == true){
+flag = false;
+move(true);
+}
+// console.log(json)
+},500);
+}
+
+function move(x){
+if(x != undefined){
+if(x){
+json.push(json.shift());
+}else{
+  json.unshift(json.pop());
+};
+};
+
+for(var i = 0; i<json.length; i++){
+animate(lis[i],{
+  width: json[i].width,
+  top: json[i].top,
+  left: json[i].left,
+  opacity: json[i].opacity,
+  zIndex: json[i].z
+},function(){flag = true;})
+};
+}
+
+function animate(obj, json, callback){
+// 先停止定时器
+  clearInterval(obj.timers);
+  obj.timers = setInterval(function(){
+	var stoped = true;
+	// console.log('sss')
+	for(var k in json){
+	 // var leader = parseInt(getStyle(obj, k));
+	 var leader = 0;
+	 if(k == 'opacity'){
+	  leader = Math.round(getStyle(obj, k)*100) || 100;
+	 }else {
+	  // console.log(json[k]);
+	  leader = parseInt(getStyle(obj, k)) || 0;
+	 };
+//         console.log(leader);
+	 // json[k]是目标位置
+	 var step = (json[k]-leader)/10;
+	 step = step > 0? Math.ceil(step) : Math.floor(step);
+	 leader = leader + step;
+	 if(k == 'opacity'){
+	  obj.style[k] = leader/100;
+	  obj.style['filter'] = 'alpha(opacity='+ leader +')';
+	 }else if(k == 'zIndex'){
+	  obj.style['zIndex'] = json[k];
+		 console.log(666);
+	 }else{
+	  obj.style[k] = leader + "px";
+	 }
+	 if(leader != json[k]){
+	  stoped = false;
+	  }
+	 };
+	 if(stoped){
+		// console.log('stop')
+		clearInterval(obj.timers);
+		callback && callback();
+	  };
+  },50);
+};
+//获取属性值
+function getStyle(obj, attr){
+  if(obj.currentStyle){
+	return obj.currentStyle[attr];
+  }else{
+	return window.getComputedStyle(obj, null)[attr];
+  };
+};
+</script>
+</body>
+</html>

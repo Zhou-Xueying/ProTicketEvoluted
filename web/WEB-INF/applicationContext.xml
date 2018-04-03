@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <aop:aspectj-autoproxy/>
+
+    <context:component-scan base-package="edu.nju.proticket">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
+    </context:component-scan>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/tickets_business?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT&amp;useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+                <prop key="current_session_context_class">thread</prop>
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+            </props>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <value>edu.nju.proticket.model</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+     <!--&lt;!&ndash;配置 Annotation 驱动，扫描@Transactional注解的类定义事务&ndash;&gt;-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
+
+    <!--<bean id="AccountService" class="edu.nju.proticket.service.Impl.AccountServiceImpl"/>-->
+    <!--<bean id="EventService" class="edu.nju.proticket.service.Impl.EventServiceImpl"/>-->
+    <!--<bean id="ManagerService" class="edu.nju.proticket.service.Impl.ManagerServiceImpl"/>-->
+    <!--<bean id="MemberService" class="edu.nju.proticket.service.Impl.MemberServiceImpl"/>-->
+    <!--<bean id="OrderService" class="edu.nju.proticket.service.Impl.OrderServiceImpl"/>-->
+    <!--<bean id="TicketService" class="edu.nju.proticket.service.Impl.TicketServiceImpl"/>-->
+    <!--<bean id="VenueService" class="edu.nju.proticket.service.Impl.VenueServiceImpl"/>-->
+
+     <!--声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="list*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--定义切面，在edu.nju.onlinestock.service包及子包中所有以Service结尾的方法中,执行有关的hibernate session的事务操作-->
+    <aop:config proxy-target-class="true">
+        <!-- 只对业务逻辑层实施事务 -->
+        <aop:pointcut id="serviceOperation"
+                      expression="execution( * edu.nju.proticket.service.*Service.*(..))" />
+        <!--<aop:pointcut id="DaoOperation"-->
+                      <!--expression="execution( * edu.nju.proticket.dao..*Dao.*(..))" />-->
+        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="DaoOperation"/>-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+    </aop:config>
+
+</beans>

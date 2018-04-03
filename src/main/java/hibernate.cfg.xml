@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/tickets_business?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT&amp;useSSL=false</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.autocommit">true</property>
+        <mapping class="edu.nju.proticket.model.Account"/>
+        <mapping class="edu.nju.proticket.model.Event"/>
+        <mapping class="edu.nju.proticket.model.Manager"/>
+        <mapping class="edu.nju.proticket.model.Member"/>
+        <mapping class="edu.nju.proticket.model.Order"/>
+        <mapping class="edu.nju.proticket.model.Ticket"/>
+        <mapping class="edu.nju.proticket.model.Venue"/>
+        <!--<property name="connection.username">root</property>-->
+        <!--<property name="connection.password"></property>-->
+
+         <!--DB schema will be updated if needed -->
+         <!--<property name="hbm2ddl.auto">update</property>-->
+    </session-factory>
+</hibernate-configuration>
