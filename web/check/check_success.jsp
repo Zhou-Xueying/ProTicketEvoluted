@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <p>检票成功！</p>
+    <p>${order.title}成功检票！</p>
     <p><a href="toVenuePage.form?venueId=${sessionScope.CURRENT_VENUE_ID}">返回</a></p>
 </body>
 </html>

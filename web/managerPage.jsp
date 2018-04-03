@@ -76,9 +76,8 @@
 <script src="static/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        console.log("document.ready");
         $.ajax({
-            url:'getApplications.form',
+            url:'getApplication.form',
             dataType:'json',
             type:'GET',
             success:function (data) {

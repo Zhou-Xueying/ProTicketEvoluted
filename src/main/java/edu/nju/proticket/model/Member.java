@@ -3,6 +3,7 @@ package edu.nju.proticket.model;
 import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "members", schema = "tickets_business")
@@ -64,7 +65,7 @@ public class Member {
     }
 
     public void setConsumptions(double consumptions) {
-        this.consumptions = consumptions;
+        this.consumptions = new BigDecimal(consumptions).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     @Basic

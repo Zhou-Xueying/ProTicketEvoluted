@@ -1,6 +1,7 @@
 package edu.nju.proticket.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -123,7 +124,7 @@ public class Order {
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        this.totalPrice = new BigDecimal(totalPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     @Basic

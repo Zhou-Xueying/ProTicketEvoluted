@@ -1,4 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>--%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: ThinkPad
@@ -53,6 +55,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-md-2">积分</label>
+                <%--<fmt:formatNumber value="${member.consumptions/10}" pattern="#" type="number"/>--%>
                 ${member.consumptions/10}
             </div>
             <div class="form-group">

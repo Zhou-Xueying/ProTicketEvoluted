@@ -50,7 +50,7 @@ public class PayController {
             memberService.updateProfile(member);
             Venue venue = venueService.getVenueInfo(order.getVenueid());
             venue.setOrdercount(venue.getOrdercount()+1);
-            venue.setTicketcount(venue.getOrdercount()+order.getTicketnumber());
+            venue.setTicketcount(venue.getTicketcount()+order.getTicketnumber());
             venue.setIncome(venue.getIncome()+order.getTotalPrice());
             venueService.updateVenueInfo(venue);
             return"pay/pay_success";
@@ -116,7 +116,7 @@ public class PayController {
             memberService.updateProfile(member);
             Venue venue = venueService.getVenueInfo(order.getVenueid());
             venue.setOrdercount(venue.getOrdercount()-1);
-            venue.setTicketcount(venue.getOrdercount()-order.getTicketnumber());
+            venue.setTicketcount(venue.getTicketcount()-order.getTicketnumber());
             venue.setIncome(venue.getIncome()-order.getTotalPrice());
             venueService.updateVenueInfo(venue);
             return"pay/refund_success";

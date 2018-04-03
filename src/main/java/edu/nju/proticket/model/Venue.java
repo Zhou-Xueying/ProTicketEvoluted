@@ -1,6 +1,7 @@
 package edu.nju.proticket.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "venues", schema = "tickets_business")
@@ -124,7 +125,7 @@ public class Venue {
     }
 
     public void setIncome(double income) {
-        this.income = income;
+        this.income = new BigDecimal(income).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     @Override
