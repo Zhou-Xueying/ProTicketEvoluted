@@ -130,9 +130,33 @@
                                 </dd>
                             </dl>
                             <dl>
-                                <dt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数量</dt>
+                                <dt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="ticNum">数量</label></dt>
                                 <dd>
-                                    <span><input type="text" value="1" maxlength=2 name="ticketnumber"><span>张</span></span>
+                                    <span>
+                                        <%--<input type="text" value="1" maxlength=2 name="ticketnumber">--%>
+                                        <select class="form-control choice" id="ticNum" name="ticketnumber" required>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                                            <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                                            <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                    </select>
+                                    </span>
                                     <span style="margin-left:15px;">最大20张</span>
                                 </dd>
                             </dl>
@@ -301,15 +325,15 @@
        }else {
            a2.setAttribute("onclick","alert('请先登录！')");
        }
-        var a3 = document.createElement("a");
-        a3.setAttribute("href","#");
-        a3.setAttribute("class","btn btn-primary");
-        a3.innerHTML = "选座购票";
-       if(logged==="true"){}else {
-           a3.setAttribute("onclick","alert('请先登录！')");
-       }
+//        var a3 = document.createElement("a");
+//        a3.setAttribute("href","#");
+//        a3.setAttribute("class","btn btn-primary");
+//        a3.innerHTML = "选座购票";
+//       if(logged==="true"){}else {
+//           a3.setAttribute("onclick","alert('请先登录！')");
+//       }
         p5.appendChild(a2);
-        p5.appendChild(a3);
+//        p5.appendChild(a3);
         dd.appendChild(p5);
 
         dl.appendChild(dd);

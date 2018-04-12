@@ -3,7 +3,7 @@ package edu.nju.proticket.service;
 public interface AccountService {
 
     /**
-     *
+     * pay
      * @param accountId
      * @param password
      * @param price

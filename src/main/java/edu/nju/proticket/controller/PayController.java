@@ -61,7 +61,7 @@ public class PayController {
             Venue venue = venueService.getVenueInfo(order.getVenueid());
             venue.setOrdercount(venue.getOrdercount()+1);
             venue.setTicketcount(venue.getTicketcount()+order.getTicketnumber());
-            venue.setIncome(venue.getIncome()+order.getTotalPrice());
+            venue.setIncome(venue.getIncome()+order.getTotalPrice()*0.80);
             venueService.updateVenueInfo(venue);
             return"pay/pay_success";
         }
