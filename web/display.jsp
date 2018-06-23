@@ -272,7 +272,7 @@
         dd.setAttribute("style",cssText);
 
         var a1 = document.createElement("a");
-        a1.setAttribute("href","#");
+        a1.setAttribute("href","toShowEventInfo.form?eventId="+eventId);// todo
         var h3 = document.createElement("h3");
         var cityAndTitle = "【"+city+"】"+title;
         h3.innerHTML = cityAndTitle;
@@ -313,17 +313,20 @@
 
         var p5 = document.createElement("p");
         var a2 = document.createElement("a");
-        a2.setAttribute("href","#");
         a2.setAttribute("class","btn btn-primary");
         a2.setAttribute("style","margin-right:15px");
         a2.innerHTML = "立即购票";
        if(logged==="true"){
-           a2.setAttribute("data-toggle","modal");
-           a2.setAttribute("data-target","#purchaseModal");
-           var onclick = "openModal("+eventId+","+venueId+","+price1+","+price2+","+price3+","+price4+","+price5+")";
-           a2.setAttribute("onclick",onclick);
+           a2.setAttribute("href","toShowEventInfo.form?eventId="+eventId);
+           // a2.setAttribute("data-toggle","modal");
+           // a2.setAttribute("data-target","#purchaseModal");
+           // var onclick = "openModal("+eventId+","+venueId+","+price1+","+price2+","+price3+","+price4+","+price5+")";
+           // a2.setAttribute("onclick",onclick);
        }else {
-           a2.setAttribute("onclick","alert('请先登录！')");
+           a2.setAttribute("data-toggle","modal");
+           a2.setAttribute("data-target","#loginModal");
+           var onclick = "openModal";
+           a2.setAttribute("onclick",onclick);
        }
 //        var a3 = document.createElement("a");
 //        a3.setAttribute("href","#");

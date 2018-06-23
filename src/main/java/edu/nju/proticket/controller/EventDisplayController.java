@@ -63,6 +63,17 @@ public class EventDisplayController {
         return list;
     }
 
+    @RequestMapping(value="/toShowEventInfo", method = RequestMethod.GET)
+    public String toShowEventInfo(@RequestParam("eventId") String eventId){
+        return "eventInfo";
+    }
+
+    @RequestMapping(value="/getEventDetail", method = RequestMethod.GET)
+    public @ResponseBody Event getEventDetail(@RequestParam("eventId") String eventId){
+        Event event = eventService.getEvent(Integer.valueOf(eventId));
+        return event;
+    }
+
     @RequestMapping(value = "/getVenueEvents", method = RequestMethod.GET)
     public @ResponseBody List<Event> getVenueEvents(@RequestParam("venueId") String venueId){
         List<Event> list = eventService.getEventsOfVenue(Integer.parseInt(venueId));
