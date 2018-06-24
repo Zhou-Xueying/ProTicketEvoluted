@@ -59,7 +59,7 @@
             height: 42px;
             line-height: 32px;
             border-radius: 100px;
-            border: solid 2px #f7f7f7;
+            border: solid 2px #1abc9c;
             font-size: 14px;
             font-weight: 500;
             text-align: center;
@@ -69,11 +69,11 @@
         }
         .price-button { /* 按钮美化 */
             position: relative;
-            margin:10px 5px 15px;
-            width: 90px; /* 宽度 */
-            height: 32px; /* 高度 */
+            margin: 0px 5px 20px;
+            width: 80px; /* 宽度 */
+            height: 35px; /* 高度 */
             border-radius: 100px;
-            border: solid 2px #f7f7f7;
+            border: solid 2px darkgrey;
             background: white; /* 背景颜色 */
             cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
             font-family: Microsoft YaHei; /* 设置字体 */
@@ -81,6 +81,7 @@
             font-size: 16px; /* 字体大小 */
         }
         .buyticket-top {
+            margin-left: 10px;
             margin-bottom: 10px;
             width: 140px;
             line-height: 44px;
@@ -91,9 +92,9 @@
             cursor: pointer;
             height: 44px;
             border-radius: 44px;
-            background-image: linear-gradient(to bottom,#ff785b,#ff3869);
-            box-shadow: 0 4px 9px 0 #fbc1ba;
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ff785b, endColorstr=#ff3869);
+            background-image: linear-gradient(to bottom,#1abc9c,#1bc5a3);
+            /*box-shadow: 0 4px 9px 0 #5bc0de;*/
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#1abc9c, endColorstr=#1bc5a3);
         }
     </style>
 </head>
@@ -107,24 +108,24 @@
 
     <div class="main-container">
         <div class="container" style="text-align:left">
-            <div class="row main-container-row" style="position: relative">
+            <div class="row main-container-row" style="position: relative;margin-top: 0px">
                 <div class="col-md-3">
                     <dl id="event_pic"></dl>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7" >
                     <dl id="event_dl"></dl>
                     <dl id="event_price"></dl>
                     <dl id="tikect_num">
                         <dd class="event-dd">
                             <div class="list-box">
                                 <h4 style="display: inline-block;">
-                                    <p>&nbsp;选择数量&nbsp;&nbsp;</p>
+                                    <p style="font-weight: 500;">&nbsp;选择数量:&nbsp;&nbsp;</p>
                                 </h4>
                                 <div class="book_row_num" style="display: inline-block;">
                                     <div class="number-input-wrapper">
-                                        <span id="reduce-one" onclick="minus()" style="font-size: 32px;color: #7f8c9a">-</span>
-                                        <input value="1"  id="buy-num" style="border-style:none;cursor: default;height: 32px">
-                                        <span id="add-one" onclick="add()" style="font-size: 32px;color: #7f8c9a">+</span>
+                                        <span id="reduce-one" onclick="minus()" style="font-size: 32px;color: #1bc5a3 " >-</span>
+                                        <input value="1"  id="buy-num" style="border-style:none;cursor: default;height: 32px;color: #1abc9c;font-weight: 800;">
+                                        <span id="add-one" onclick="add()" style="font-size: 32px;color: #1abc9c">+</span>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +135,7 @@
                         <dd class="event-dd">
                             <div class="list-box" style="display: inline-block">
                                 <h4 class="summation-label" style="display: inline-block;">
-                                    <p>&nbsp;合计&nbsp;&nbsp;</p>
+                                    <p style="font-weight: 500;">&nbsp;合计:&nbsp;&nbsp;</p>
                                 </h4>
                                 <span id="sumpay" style="display: inline-block;"></span>
                                 <span id="perprice" style="display: inline-block"></span>
@@ -147,6 +148,9 @@
                     </dd>
                 </div>
             </div>
+        </div>
+        <br>
+        <div>
         </div>
     </div>
 
@@ -245,61 +249,72 @@
         var img = document.createElement("img");
         img.setAttribute("src",imgUrl);
         img.setAttribute("width",300);
-        img.setAttribute("height",420);
-        img.setAttribute("style","border-radius: 25px;");
+        img.setAttribute("height",410);
+        img.setAttribute("style","border-radius: 25px;box-shadow: 0 4px 16px 0 #ccc;");
         a.appendChild(img);
         pic.appendChild(a);
 
         var dl = document.getElementById("event_dl");
         var dd = document.createElement("dd");
         dd.setAttribute("class","event-dd");
-        var h3 = document.createElement("h3");
+        var p0 = document.createElement("p");
+        var span0 = document.createElement("span");
+        span0.setAttribute("style","font-size: 25px;")
         var cityAndTitle = title;
-        h3.innerHTML = cityAndTitle;
-        dd.appendChild(h3);
-
-        var br = document.createElement("br");
-        dd.appendChild(br);
+        span0.innerHTML = cityAndTitle;
+        p0.appendChild(span0);
+        dd.appendChild(p0);
 
         var p1 = document.createElement("p");
         var span1 = document.createElement("span");
-        span1.setAttribute("style","font-size: 15px;")
+        span1.setAttribute("style","font-size: 18px;")
         if(!(description==="None")){
-            span1.innerHTML = description;
+            span1.innerHTML = "&nbsp;"+description;
         }
         else{
-            span1.innerHTML = "  视听盛宴，尽情期待~";
+            span1.innerHTML = "&nbsp;视听盛宴，尽情期待~";
         }
         p1.appendChild(span1);
         dd.appendChild(p1);
 
         var p2 = document.createElement("p");
         var span2 = document.createElement("span");
-        span1.setAttribute("style","font-size: 15px;")
-        span2.innerHTML = "地点："+venueName;
+        span2.setAttribute("style","font-size: 18px;")
+        span2.innerHTML = "&nbsp;地点："+venueName;
         p2.appendChild(span2);
         dd.appendChild(p2);
 
         var p3 = document.createElement("p");
         var span3 = document.createElement("span");
-        span1.setAttribute("style","font-size: 15px;")
-        span3.innerHTML = "时间："+time;
+        span3.setAttribute("style","font-size: 18px;")
+        span3.innerHTML = "&nbsp;时间："+time;
         p3.appendChild(span3);
         dd.appendChild(p3);
 
         dl.appendChild(dd);
         var hr = document.createElement("hr");
+        hr.setAttribute("style","margin-left: 20px;");
         dl.appendChild(hr);
 
         var price = document.getElementById("event_price")
         var ddd = document.createElement("dd");
         ddd.setAttribute("class","event-dd");
+
+        var h4 = document.createElement("h4");
+        h4.setAttribute("style","display:inline-block;")
+        var p5 = document.createElement("p");
+        p5.setAttribute("style","font-weight:500;")
+        p5.innerHTML = "&nbsp;选择票面：";
+        h4.appendChild(p5);
+        ddd.appendChild(h4);
+
         var priceArray = new Array(price1,price2,price3,price4,price5);
         for(var i=0;i<5;i++) {
             var button = document.createElement("button");
             button.setAttribute("type","button");
             button.setAttribute("class","price-button");
-            button.setAttribute("onclick","calculatePay("+priceArray[i]+")");
+            button.setAttribute("style","display: inline-block;")
+            button.setAttribute("onclick","calculatePay("+priceArray[i]+","+i+")");
             button.innerHTML = priceArray[i]+" 元";
             ddd.appendChild(button);
         }
@@ -339,7 +354,7 @@
             num_e.setAttribute("value",--num);
         }
         var pay = document.getElementById("sumpay").innerHTML.split("&nbsp;")[0];
-        calculatePay(pay/origin);
+        calculatePay(pay/origin,numMax);
     }
     function add() {
         var num_e = document.getElementById("buy-num");
@@ -349,22 +364,29 @@
             num_e.setAttribute("value",++num);
         }
         var pay = document.getElementById("sumpay").innerHTML.split("&nbsp;")[0];
-        calculatePay(pay/origin);
+        calculatePay(pay/origin,numMax);
     }
-    function calculatePay(chosenPrice) {
+    function calculatePay(chosenPrice,id) {
+        if(id!=numMax){
+            var button = document.getElementsByClassName("price-button");
+            for(var i=0;i<button.length;i++){
+                button[i].setAttribute("style","border: solid 2px darkgrey;")
+            }
+            button[id].setAttribute("style","border: solid 2px #1abc9c;");
+        }
         var num = document.getElementById("buy-num").getAttribute("value");
         var payment = chosenPrice*num;
         var pay = document.getElementById("sumpay");
-        pay.setAttribute("style","color: #ff6c69;font-size: 22px;");
+        pay.setAttribute("style","color: #1abc9c;font-size: 22px;");
         pay.innerHTML = payment+"&nbsp;元&nbsp;"
 
         var perprice = document.getElementById("perprice");
-        perprice.setAttribute("style","color: #333333;font-size: 12px;");
+        perprice.setAttribute("style","color: #333333;font-size: 16px;");
         perprice.innerHTML = chosenPrice+"&nbsp;元/张";
     }
     function successpay() {
         var pay = document.getElementById("js-preorder-btn");
-        pay.setAttribute("style","color: red;font-size: 20px;");
+        pay.setAttribute("style","color: red;font-size: 20px;display: inline-block");
         pay.innerHTML = "&nbsp;&nbsp;你已支付成功！";
     }
 </script>
