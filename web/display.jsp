@@ -200,11 +200,11 @@
             url: "getEventList.form",
             data: theRequest,
             dataType: 'json',
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert(XMLHttpRequest.status);
-                alert(XMLHttpRequest.readyState);
-                alert(textStatus);
-            },
+//            error: function(XMLHttpRequest, textStatus, errorThrown) {
+//                alert(XMLHttpRequest.status);
+//                alert(XMLHttpRequest.readyState);
+//                alert(textStatus);
+//            },
             success: function (data) {
                 console.log("ajax success");
                 var slideBox = document.getElementById("box");
