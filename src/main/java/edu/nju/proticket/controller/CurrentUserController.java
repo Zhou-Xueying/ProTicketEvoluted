@@ -25,7 +25,7 @@ public class CurrentUserController {
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcome(){
-        return "index";
+        return "display";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

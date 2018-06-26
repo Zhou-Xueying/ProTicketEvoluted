@@ -12,6 +12,6 @@
 </head>
 <body>
     <p>登录信息错误，请检查您的账号与密码</p>
-    <p><a href="welcome.form">返回首页</a></p>
+    <p><a href="toDisplay.form?type=0">返回首页</a></p>
 </body>
 </html>

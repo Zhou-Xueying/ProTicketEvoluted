@@ -133,11 +133,11 @@
     <div id="box">
         <div class="slide">
             <ul>
-                <li class="revolve-li"><a href="#"><img src="static/images/1.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="#"><img src="static/images/2.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="#"><img src="static/images/3.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="#"><img src="static/images/5.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="#"><img src="static/images/6.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/1.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/2.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/3.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/5.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/6.jpg" alt=""></a></li>
             </ul>
             <div class="arraw">
                 <a href="javascript:;" class="next"></a>
@@ -191,8 +191,13 @@
             sessionStorage.setItem("type",str.split('=')[1]);
             strs = str.split("&");
             for(var i = 0; i < strs.length; i ++) {
+                console.log(strs[i].split("=")[0]);
+                console.log(strs[i].split("=")[1]);
                 theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
             }
+        }else{
+            sessionStorage.setItem("type",0);
+            theRequest["type"]=0;
         }
 
         $.ajax({

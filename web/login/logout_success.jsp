@@ -12,6 +12,6 @@
 </head>
 <body>
     <p>成功登出</p>
-    <p><a href="welcome.form">返回首页</a></p>
+    <p><a href="toDisplay.form?type=0">返回首页</a></p>
 </body>
 </html>
