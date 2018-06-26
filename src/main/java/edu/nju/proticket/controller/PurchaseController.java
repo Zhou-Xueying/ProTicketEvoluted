@@ -28,6 +28,33 @@ public class PurchaseController {
     @Autowired
     private MemberService memberService;
 
+//    @RequestMapping(value="/makeOrderWithoutSeatChoice")
+//    public String makeOrder(@RequestParam("memberid") Integer memberId,
+//                            @RequestParam("eventid") String eventId,
+//                            @RequestParam("venueid") String venueId,
+//                            @RequestParam("ticketnumber") String ticketNum,
+//                            @RequestParam("price") String price, Model model){
+//        Event event = eventService.getEvent(Integer.parseInt(eventId));
+//        Order order = new Order();
+//        order.setOrderid(CreateId.createOrderId(memberId));
+//        order.setEventid(Integer.parseInt(eventId));
+//        order.setMemberid(memberId);
+//        order.setVenueid(Integer.parseInt(venueId));
+//        order.setPrice(Integer.parseInt(price));
+//        order.setTicketnumber(Integer.parseInt(ticketNum));
+//        order.setCondition(0);
+//        Member member = memberService.getProfile(memberId);
+//        double discount = memberService.discount(member.getLevel());
+//        double totalPrice = order.getPrice() * order.getTicketnumber() * discount;
+//        order.setTotalPrice(new BigDecimal(totalPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+//        order.setOrderid(CreateId.createOrderId(memberId));
+//        order.setTitle(event.getTitle());
+//        order.setDatetime(event.getTime());
+//        orderService.makeOrder(order);
+//        model.addAttribute("order",order);
+//        return "pay";
+//    }
+
     @RequestMapping(value="/makeOrderWithoutSeatChoice")
     public String makeOrder(@RequestParam("memberid") Integer memberId,
                             @RequestParam("eventid") String eventId,
@@ -42,7 +69,7 @@ public class PurchaseController {
         order.setVenueid(Integer.parseInt(venueId));
         order.setPrice(Integer.parseInt(price));
         order.setTicketnumber(Integer.parseInt(ticketNum));
-        order.setCondition(0);
+        order.setCondition(1);
         Member member = memberService.getProfile(memberId);
         double discount = memberService.discount(member.getLevel());
         double totalPrice = order.getPrice() * order.getTicketnumber() * discount;
@@ -50,9 +77,10 @@ public class PurchaseController {
         order.setOrderid(CreateId.createOrderId(memberId));
         order.setTitle(event.getTitle());
         order.setDatetime(event.getTime());
+        order.setImgUrl(event.getImgUrl());
         orderService.makeOrder(order);
         model.addAttribute("order",order);
-        return "pay";
+        return "";
     }
 
 //    @RequestMapping(value = "/changeOrderConditionToPaid")

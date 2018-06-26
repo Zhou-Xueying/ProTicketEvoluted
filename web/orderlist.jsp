@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c"
+           uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>缇可网，您的票务专家</title>
@@ -39,7 +41,6 @@
 <body>
 <jsp:include page="header.jsp"/>
 
-<div class="content container" style="margin-top: 65px;margin-bottom: 100px; max-width:1600px;">
 
     <jsp:include page="wrapper.jsp"/>
 
@@ -57,12 +58,34 @@
         </div>
     </div>
 </div>
+<div class="content container" style="margin-top: 65px;margin-bottom: 100px; max-width:1600px;">
+<div class="text-center">
+    <nav>
+        <ul class="pagination">
+            <li><a href="<c:url value="toThePage.form?page=1"/>">首页</a></li>
+            <li><a href="<c:url value="toThePage.form?page=${sessionScope.page-1>1?sessionScope.page-1:1}"/>">&laquo;</a></li>
 
+            <c:forEach begin="1" end="${sessionScope.totalPages}" varStatus="loop">
+                <c:set var="active" value="${loop.index==sessionScope.page?'active':''}"/>
+                <li class="${active}"><a
+                        href="<c:url value="toThePage.form?page=${loop.index}"/>">${loop.index}</a>
+                </li>
+            </c:forEach>
+            <li>
+                <a href="<c:url value="toThePage.form?page=${sessionScope.page+1<sessionScope.totalPages?sessionScope.page+1:sessionScope.totalPages}"/>">&raquo;</a>
+            </li>
+            <li><a href="<c:url value="toThePage.form?page=${sessionScope.totalPages}"/>">尾页</a></li>
+        </ul>
+    </nav>
+</div>
 <footer style="text-align: center; margin: 10px;">
     <div class="container">
         <p>Copyright © 2018 ProTicket NJU Software</p>
     </div>
 </footer>
+
+
+
 <!-- Bootstrap core JavaScript-->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="static/jquery/jquery.js" type="text/javascript"></script>
@@ -108,7 +131,15 @@
             url: "getOrderList.form",
             dataType: 'json',
             success: function (data) {
-                for(var i=0;i<data.length;i++){
+                var page=<%=session.getAttribute("page")%>
+                var totalUsers =data.length;
+                var usersPerPage=5;
+                var beginIndex = (page - 1) * usersPerPage;
+                var endIndex = beginIndex + usersPerPage;
+                if (endIndex > totalUsers){ endIndex = totalUsers;}
+
+
+                for(var i=beginIndex;i<endIndex;i++){
                     var orderId = data[i].orderid;
                     var title = data[i].title;
                     var price = data[i].price;
@@ -117,17 +148,22 @@
                     var dateTime = data[i].datetime;
                     var time = (new Date(parseFloat(dateTime))).format("yyyy-MM-dd hh:mm:ss");
                     var status = data[i].condition;
-                    addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status);
+                    var imgUrl = data[i].imgUrl;
+                    addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status, imgUrl);
                 }
+
             }
         });
     });
 
-    function addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status){
+    function addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status, imgUrl){
 
         var dl = document.getElementById("order-dl");
         var dd = document.createElement("dd");
         dd.setAttribute("class","event-dd");
+
+        var cssText = "background-image:url("+ imgUrl+");background-size:180px 242px;";
+        dd.setAttribute("style",cssText);
 
         var a1 = document.createElement("a");
         a1.setAttribute("href","#");
