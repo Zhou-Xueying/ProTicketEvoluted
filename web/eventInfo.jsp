@@ -23,6 +23,14 @@
             padding-left:80px;
             background-repeat:no-repeat;
         }
+        .img1 {
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-filter: blur(5px); /* Chrome, Safari, Opera */
+            filter: blur(5px);
+        }
         dl{
             padding:0;
             margin:0;
@@ -58,7 +66,7 @@
             width: 115px;
             height: 42px;
             line-height: 32px;
-            border-radius: 100px;
+            border-radius: 12px;
             border: solid 2px #1abc9c;
             font-size: 14px;
             font-weight: 500;
@@ -72,8 +80,8 @@
             margin: 0px 5px 20px;
             width: 80px; /* 宽度 */
             height: 35px; /* 高度 */
-            border-radius: 100px;
-            border: solid 2px darkgrey;
+            border-radius: 12px;
+            border: solid 2px #415b76;
             background: white; /* 背景颜色 */
             cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
             font-family: Microsoft YaHei; /* 设置字体 */
@@ -81,17 +89,17 @@
             font-size: 16px; /* 字体大小 */
         }
         .buyticket-top {
-            margin-left: 10px;
+            margin-left: 0px;
             margin-bottom: 10px;
             width: 140px;
             line-height: 44px;
-            font-size: 16px;
+            font-size: 20px;
             font-weight: 500;
             color: #fff;
             text-align: center;
             cursor: pointer;
             height: 44px;
-            border-radius: 44px;
+            border-radius: 12px;
             background-image: linear-gradient(to bottom,#1abc9c,#1bc5a3);
             /*box-shadow: 0 4px 9px 0 #5bc0de;*/
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#1abc9c, endColorstr=#1bc5a3);
@@ -99,20 +107,18 @@
     </style>
 </head>
 <body>
-
 <jsp:include page="header.jsp"/>
-
 <div class="content container" style="margin-top: 65px;margin-bottom: 100px; max-width:1600px;">
 
     <jsp:include page="wrapper.jsp"/>
 
     <div class="main-container">
         <div class="container" style="text-align:left">
-            <div class="row main-container-row" style="position: relative;margin-top: 0px">
-                <div class="col-md-3">
-                    <dl id="event_pic"></dl>
+            <div class="row main-container-row" style="margin-top: 0px;background: white;">
+                <div class="col-md-3" style="margin-top: 20px">
+                    <dl id="event_pic" style="margin-bottom: 20px"></dl>
                 </div>
-                <div class="col-md-7" >
+                <div class="col-md-7" style="margin-left: 60px;margin-top: 20px;">
                     <dl id="event_dl"></dl>
                     <dl id="event_price"></dl>
                     <dl id="tikect_num">
@@ -147,13 +153,20 @@
                         <div id="js-preorder-btn" style="display: inline-block"></div>
                     </dd>
                 </div>
+                <br>
+            </div>
+            <div class="row main-container-row" style="margin-top: 20px;background: white;">
+                <nav class="navbar navbar-default col-md-5" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;&nbsp;演出介绍：</a>
+
+                        </div>
+                    </div>
+                </nav>
             </div>
         </div>
-        <br>
-        <div>
-        </div>
     </div>
-
     <jsp:include page="modal.jsp"/>
 
 </div>
@@ -242,15 +255,18 @@
         var logged = '${!empty(sessionScope.CURRENT_USER_NAME)}';
         console.log(logged);
 
+        var back = document.getElementsByClassName("content container")[0];
+        back.setAttribute("style","background-image: url("+imgUrl+")");
+
         var pic = document.getElementById("event_pic");
         var a = document.createElement("a");
         a.setAttribute("href","#");
         a.setAttribute("class","event_post");
         var img = document.createElement("img");
         img.setAttribute("src",imgUrl);
-        img.setAttribute("width",300);
-        img.setAttribute("height",410);
-        img.setAttribute("style","border-radius: 25px;box-shadow: 0 4px 16px 0 #ccc;");
+        img.setAttribute("width",280);
+        img.setAttribute("height",380);
+        img.setAttribute("style","border-radius: 25px;box-shadow: 0 4px 16px 0 #ccc;margin-left: 80px");
         a.appendChild(img);
         pic.appendChild(a);
 
@@ -264,6 +280,8 @@
         span0.innerHTML = cityAndTitle;
         p0.appendChild(span0);
         dd.appendChild(p0);
+        var br = document.createElement("br");
+        dd.appendChild(br);
 
         var p1 = document.createElement("p");
         var span1 = document.createElement("span");
@@ -280,16 +298,14 @@
         var p2 = document.createElement("p");
         var span2 = document.createElement("span");
         span2.setAttribute("style","font-size: 18px;")
-        span2.innerHTML = "&nbsp;地点："+venueName;
+        if(venueName.length<12) {
+            span2.innerHTML = "&nbsp;地点：" + venueName + "&nbsp;&nbsp;&nbsp;" + "&nbsp;时间：" + time;
+        }
+        else{
+            span2.innerHTML = "&nbsp;地点：" + venueName + "<br >" + "&nbsp;时间：" + time;
+        }
         p2.appendChild(span2);
         dd.appendChild(p2);
-
-        var p3 = document.createElement("p");
-        var span3 = document.createElement("span");
-        span3.setAttribute("style","font-size: 18px;")
-        span3.innerHTML = "&nbsp;时间："+time;
-        p3.appendChild(span3);
-        dd.appendChild(p3);
 
         dl.appendChild(dd);
         var hr = document.createElement("hr");
@@ -370,7 +386,7 @@
         if(id!=numMax){
             var button = document.getElementsByClassName("price-button");
             for(var i=0;i<button.length;i++){
-                button[i].setAttribute("style","border: solid 2px darkgrey;")
+                button[i].setAttribute("style","border: solid 2px #415b76;")
             }
             button[id].setAttribute("style","border: solid 2px #1abc9c;");
         }
@@ -383,11 +399,16 @@
         var perprice = document.getElementById("perprice");
         perprice.setAttribute("style","color: #333333;font-size: 16px;");
         perprice.innerHTML = chosenPrice+"&nbsp;元/张";
+        canceltip();
     }
     function successpay() {
         var pay = document.getElementById("js-preorder-btn");
         pay.setAttribute("style","color: red;font-size: 20px;display: inline-block");
         pay.innerHTML = "&nbsp;&nbsp;你已支付成功！";
+    }
+    function canceltip(){
+        var pay = document.getElementById("js-preorder-btn");
+        pay.innerHTML = "";
     }
 </script>
 
