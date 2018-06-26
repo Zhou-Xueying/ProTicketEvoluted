@@ -10,6 +10,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html>
+
 <head>
     <title>缇可网，您的票务专家</title>
     <!-- Bootstrap core CSS -->
@@ -28,41 +29,44 @@
 <div class="content container" style="margin-top: 65px;margin-bottom: 100px; max-width:1600px;">
 
     <jsp:include page="wrapper.jsp"/>
-
     <div class="col-md-offset-3 col-md-7">
         <div class="row row-title">
-            <div class="col-md-3"><p class="title-page">个人信息</p></div>
+            <div class="col-md-3"><p class="title-page">个人信息</p>
+                </div>
             <div class="col-md-offset-8">
-                <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editModal">编辑</a>
+                <a href="#" class="btn btn-sm btn-primary" id="edit">编辑</a>
                 <a href="#" class="btn btn-sm btn-danger" onclick="if(del())event.preventDefault();
                     document.getElementById('delete-form').submit();">注销账号</a>
                 <form:form id="delete-form" action="deleteUser.form" method="POST" style="display: none;"/>
             </div>
         </div>
         <hr/>
-        <form class="form-horizontal">
+        <form:form class="form-horizontal" method="POST" action="updateName.form">
             <div class="form-group">
                 <label class="control-label col-md-2">邮箱</label>
-                ${member.email}
+                    ${member.email}
             </div>
             <div class="form-group">
-                <label class="control-label col-md-2">用户名</label>
-                ${member.username}
+                <label for="name" class="control-label col-md-2">用户名</label>
+                <dd>${member.username}</dd>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-2">累计消费</label>
-                ${member.consumptions}
+                    ${member.consumptions}
             </div>
             <div class="form-group">
                 <label class="control-label col-md-2">积分</label>
-                <%--<fmt:formatNumber value="${member.consumptions/10}" pattern="#" type="number"/>--%>
-                ${member.consumptions/10}
+                    <%--<fmt:formatNumber value="${member.consumptions/10}" pattern="#" type="number"/>--%>
+                    ${member.consumptions/10}
             </div>
             <div class="form-group">
                 <label class="control-label col-md-2">会员等级</label>
-                ${member.level}
+                    ${member.level}
             </div>
-        </form>
+            <div class="col-md-6 col-md-offset-3">
+                <button type="submit" id="enter" class="btn btn-ld btn-primary btn-block" style="display:none">保存个人信息</button>
+            </div>
+        </form:form>
     </div>
 </div>
 
@@ -76,25 +80,25 @@
                 <h4 class="modal-title">修改用户名</h4>
             </div>
             <div class="modal-body">
-                <form:form class="form-horizontal" method="POST" action="updateName.form">
-                    <div class="form-group">
-                        <label for="name" class="col-md-4 control-label">当前用户名</label>
-                        <div class="col-md-6">
-                            ${member.username}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="col-md-4 control-label">新的用户名</label>
-                        <div class="col-md-6">
-                            <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-3">
-                            <button type="submit" class="btn btn-ld btn-primary btn-block">确定</button>
-                        </div>
-                    </div>
-                </form:form>
+                <%--<form:form class="form-horizontal" method="POST" action="updateName.form">--%>
+                <%--<div class="form-group">--%>
+                <%--<label for="name" class="col-md-4 control-label">当前用户名</label>--%>
+                <%--<div class="col-md-6">--%>
+                <%--${member.username}--%>
+                <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="form-group">--%>
+                <%--<label for="name" class="col-md-4 control-label">新的用户名</label>--%>
+                <%--<div class="col-md-6">--%>
+                <%--<input id="name" type="text" class="form-control" name="name" value="" required autofocus>--%>
+                <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="form-group">--%>
+                <%--<div class="col-md-6 col-md-offset-3">--%>
+                <%--<button type="submit" class="btn btn-ld btn-primary btn-block">确定</button>--%>
+                <%--</div>--%>
+                <%--</div>--%>
+                <%--</form:form>--%>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -155,5 +159,37 @@
         }
     }
 </script>
+<script>
+    var statu = 0;
+    var edit = document.getElementById('edit');
+    var item = document.getElementsByTagName('dd');
+    var item_length = item.length;
+    var item_value = new Array(item_length);
+    var enter=document.getElementById('enter');
 
+    for(i = 0; i < item_length; i++){
+        item_value[i] = item[i].innerHTML;
+    }
+
+    edit.onclick =function(){
+        if(statu == 0){
+            edit.style.display='none';
+            enter.style.display = "block";
+            for(i = 0; i < item_length; i++){
+                item[i].innerHTML = '<input type="txt" class="item_input" name="name" value="'+item_value[i]+'">';
+            }
+            statu = 1;
+        }else{
+            var item_input = document.getElementsByClassName('item_input');
+            for(i = 0; i < item_length; i++){
+                item_value[i] = item_input[i].value;
+            }
+            for(i = 0; i < item_length; i++){
+                item[i].innerHTML = item_value[i];
+            }
+            statu = 0
+        }
+        return false;
+    }
+</script>
 </body>

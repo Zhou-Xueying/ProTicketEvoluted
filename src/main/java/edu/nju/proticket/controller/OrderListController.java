@@ -21,7 +21,27 @@ public class OrderListController {
     private OrderService orderService;
 
     @RequestMapping(value = "/toMyOrderList", method = RequestMethod.GET)
-    public String toMyOrderList(){
+    public String toMyOrderList(HttpSession session){
+        int memberId = (Integer) session.getAttribute(CURRENT_USER_ID);
+        List<Order> list = orderService.getOrderOfMember(memberId);
+        int page=1;
+        int totalUsers =list.size();
+        int usersPerPage=5;
+        int totalPages = totalUsers % usersPerPage == 0 ? totalUsers / usersPerPage : totalUsers / usersPerPage + 1;
+        int beginIndex = (page - 1) * usersPerPage;
+        int endIndex = beginIndex + usersPerPage;
+        if (endIndex > totalUsers){ endIndex = totalUsers;}
+
+
+        session.setAttribute("totalUsers",totalUsers);
+        session.setAttribute("totalPages",totalPages);
+        session.setAttribute("usersPerPage",usersPerPage);
+        session.setAttribute("page",page);
+        return "orderlist";
+    }
+    @RequestMapping(value = "/toThePage", method = RequestMethod.GET)
+    public String toThePage(@RequestParam("page") int page,HttpSession session){
+        session.setAttribute("page",page);
         return "orderlist";
     }
 

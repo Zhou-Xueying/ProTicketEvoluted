@@ -77,6 +77,7 @@ public class PurchaseController {
         order.setOrderid(CreateId.createOrderId(memberId));
         order.setTitle(event.getTitle());
         order.setDatetime(event.getTime());
+        order.setImgUrl(event.getImgUrl());
         orderService.makeOrder(order);
         model.addAttribute("order",order);
         return "";
