@@ -110,8 +110,6 @@
 <jsp:include page="header.jsp"/>
 <div class="content container" style="margin-top: 65px;margin-bottom: 100px; max-width:1600px;">
 
-    <jsp:include page="wrapper.jsp"/>
-
     <div class="main-container">
         <div class="container" style="text-align:left">
             <div class="row main-container-row" style="margin-top: 0px;background: white;">
@@ -252,8 +250,6 @@
     });
 
     function addEventDiv(eventId, imgUrl, city, title, description, venueName, venueId, time, price1, price2, price3, price4, price5){
-        var logged = '${!empty(sessionScope.CURRENT_USER_NAME)}';
-        console.log(logged);
 
         var back = document.getElementsByClassName("content container")[0];
         back.setAttribute("style","background-image: url("+imgUrl+")");
@@ -404,7 +400,14 @@
     function successpay() {
         var pay = document.getElementById("js-preorder-btn");
         pay.setAttribute("style","color: red;font-size: 20px;display: inline-block");
-        pay.innerHTML = "&nbsp;&nbsp;你已支付成功！";
+        var logged = '${!empty(sessionScope.CURRENT_USER_NAME)}';
+        console.log(logged);
+        if(logged=="true"){
+            
+            pay.innerHTML = "&nbsp;&nbsp;你已支付成功！";
+        }
+        else{
+        }
     }
     function canceltip(){
         var pay = document.getElementById("js-preorder-btn");
