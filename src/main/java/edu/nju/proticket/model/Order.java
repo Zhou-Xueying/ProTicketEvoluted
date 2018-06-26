@@ -26,7 +26,6 @@ public class Order {
     private Integer seat5Id;
     private Integer seat6Id;
     private Timestamp timestamp;
-    private String imgUrl;
 
     @Id
     @Column(name = "orderid")
@@ -209,15 +208,6 @@ public class Order {
         this.timestamp = timestamp;
     }
 
-    @Basic
-    @Column(name="imgUrl")
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -162,8 +162,8 @@
         var dd = document.createElement("dd");
         dd.setAttribute("class","event-dd");
 
-        var cssText = "background-image:url("+ imgUrl+");background-size:180px 242px;";
-        dd.setAttribute("style",cssText);
+//        var cssText = "background-image:url("+ imgUrl+");background-size:180px 242px;";
+//        dd.setAttribute("style",cssText);
 
         var a1 = document.createElement("a");
         a1.setAttribute("href","#");
