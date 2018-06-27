@@ -20,3 +20,8 @@ web/WEB-INF/applicationContext.xml
 .idea/artifacts/ProNote2_war_exploded.xml
 .idea/libraries/Maven__net_sf_json_lib_json_lib_2_4.xml
 web/WEB-INF/applicationContext.xml
+*.class
+*.jar
+out/*.*
+
+web/WEB-INF/applicationContext.xml

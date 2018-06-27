@@ -42,7 +42,7 @@
 <jsp:include page="header.jsp"/>
 
 
-    <jsp:include page="wrapper.jsp"/>
+
 
     <div class="main-container">
         <div class="container" style="text-align:left">
@@ -162,14 +162,16 @@
         var dd = document.createElement("dd");
         dd.setAttribute("class","event-dd");
 
-//        var cssText = "background-image:url("+ imgUrl+");background-size:180px 242px;";
-//        dd.setAttribute("style",cssText);
+       var cssText = "background-image:url("+ imgUrl+");background-size:90px 120px;";
+       dd.setAttribute("style",cssText);
 
-        var a1 = document.createElement("a");
-        a1.setAttribute("href","#");
-        var h3 = document.createElement("h3");
-        h3.innerHTML = title;
-        a1.appendChild(h3);
+        var a1 = document.createElement("p");
+        var span = document.createElement("span");
+        span.setAttribute("style","font-size:20px");
+//        var cityAndTitle = "【"+city+"】"+title;
+//        span.innerHTML = cityAndTitle;
+        span.innerHTML = title;
+        a1.appendChild(span);
         dd.appendChild(a1);
 
         var br = document.createElement("br");
@@ -179,27 +181,23 @@
 
         var p1 = document.createElement("p");
         var span1 = document.createElement("span");
-        span1.innerHTML = "场次：" + time;
+        span1.innerHTML = "场次：   " + time+ "&emsp;&emsp;&emsp;票面：" + price + "元";
         p1.appendChild(span1);
         dd.appendChild(p1);
 
-        var p2 = document.createElement("p");
-        var span2 = document.createElement("span");
-        span2.innerHTML = "票面：" + price + "元";
-        p2.appendChild(span2);
-        dd.appendChild(p2);
+
 
         var p3 = document.createElement("p");
         var span3 = document.createElement("span");
-        span3.innerHTML = "数量：" + ticketNum + "张";
+        span3.innerHTML = "数量：" + ticketNum + "张&emsp;&emsp;&emsp;&thinsp; "+"总价：" + totalPrice + "元";
         p3.appendChild(span3);
         dd.appendChild(p3);
-
-        var p4 = document.createElement("p");
-        var span4 = document.createElement("span");
-        span4.innerHTML = "总价：" + totalPrice + "元";
-        p4.appendChild(span4);
-        dd.appendChild(p4);
+        //
+        // var p4 = document.createElement("p");
+        // var span4 = document.createElement("span");
+        // span4.innerHTML = "总价：" + totalPrice + "元";
+        // p4.appendChild(span4);
+        // dd.appendChild(p4);
 
         var p5 = document.createElement("p");
         var span5 = document.createElement("span");
@@ -212,26 +210,26 @@
         }else{
             span5.innerHTML = "订单状态：已使用";
         }
-        p5.appendChild(span5);
-        if(status===0){
-            var a2 = document.createElement("a");
-            a2.setAttribute("href","#");
-            a2.setAttribute("class","btn btn-primary");
-            a2.setAttribute("style","position:absolute;right:25px;");
-            a2.innerHTML = "去付款";
-            var onclick1 = "window.location.href='http://localhost:8090/toPay.form?orderId="+orderId+"';";
-            a2.setAttribute("onclick",onclick1);
-            p5.appendChild(a2);
-        }else if(status===1){
-            var a3 = document.createElement("a");
-            a3.setAttribute("href","#");
-            a3.setAttribute("class","btn btn-danger");
-            a3.setAttribute("style","position:absolute;right:25px;");
-            a3.innerHTML = "申请退款";
-            var onclick2 = "window.location.href='http://localhost:8090/toGetMoneyBack.form?orderId="+orderId+"';";
-            a3.setAttribute("onclick",onclick2);
-            p5.appendChild(a3);
-        }
+        // p5.appendChild(span5);
+        // if(status===0){
+        //     var a2 = document.createElement("a");
+        //     a2.setAttribute("href","#");
+        //     a2.setAttribute("class","btn btn-primary");
+        //     a2.setAttribute("style","position:absolute;right:25px;");
+        //     a2.innerHTML = "去付款";
+        //     var onclick1 = "window.location.href='http://localhost:8090/toPay.form?orderId="+orderId+"';";
+        //     a2.setAttribute("onclick",onclick1);
+        //     p5.appendChild(a2);
+        // }else if(status===1){
+        //     var a3 = document.createElement("a");
+        //     a3.setAttribute("href","#");
+        //     a3.setAttribute("class","btn btn-danger");
+        //     a3.setAttribute("style","position:absolute;right:25px;");
+        //     a3.innerHTML = "申请退款";
+        //     var onclick2 = "window.location.href='http://localhost:8090/toGetMoneyBack.form?orderId="+orderId+"';";
+        //     a3.setAttribute("onclick",onclick2);
+        //     p5.appendChild(a3);
+        // }
         dd.appendChild(p5);
         dd.appendChild(br);
 

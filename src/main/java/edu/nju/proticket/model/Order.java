@@ -26,7 +26,14 @@ public class Order {
     private Integer seat5Id;
     private Integer seat6Id;
     private Timestamp timestamp;
+    private String imgUrl;
 
+    public void setImgUrl(String imgUrl){
+        this.imgUrl=imgUrl;
+    }
+    public String getImgUrl( ){
+        return this.imgUrl;
+    }
     @Id
     @Column(name = "orderid")
     public String getOrderid() {
