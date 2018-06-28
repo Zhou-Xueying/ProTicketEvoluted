@@ -57,6 +57,15 @@ public class OrderListController {
             String img=eventService.getEvent(id).getImgUrl();
             list.get(i).setImgUrl(img);
         }
+        for(int i=0;i<list.size();i++){
+            for(int t=0;t<list.size()-i-1;t++){
+                if(list.get(t).getTimestamp().before(list.get(t+1).getTimestamp())){
+                    Order temp=list.get(t);
+                    list.set(t,list.get(t+1));
+                    list.set(t+1,temp);
+                    }
+            }
+        }
         return list;
     }
 
