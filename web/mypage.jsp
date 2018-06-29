@@ -28,15 +28,12 @@
 
 <div class="content container" style="margin-top: 65px;margin-bottom: 100px; max-width:1600px;">
 
-    <jsp:include page="wrapper.jsp"/>
     <div class="col-md-offset-3 col-md-7">
         <div class="row row-title">
             <div class="col-md-3"><p class="title-page">个人信息</p>
                 </div>
             <div class="col-md-offset-8">
-                <a href="#" class="btn btn-sm btn-primary" id="edit">编辑</a>
-                <a href="#" class="btn btn-sm btn-danger" onclick="if(del())event.preventDefault();
-                    document.getElementById('delete-form').submit();">注销账号</a>
+                <a href="#" class="btn btn-sm btn-primary" id="edit">编辑个人信息</a>
                 <form:form id="delete-form" action="deleteUser.form" method="POST" style="display: none;"/>
             </div>
         </div>

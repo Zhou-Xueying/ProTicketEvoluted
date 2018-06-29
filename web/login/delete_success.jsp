@@ -12,6 +12,6 @@
 </head>
 <body>
     <p>账号注销成功，感谢您之前对缇可网的厚爱。</p>
-    <p><a href="welcome.form">返回首页</a></p>
+    <p><a href="toDisplay.form?type=0">返回首页</a></p>
 </body>
 </html>

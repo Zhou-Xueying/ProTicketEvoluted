@@ -1,6 +1,7 @@
 package edu.nju.proticket.controller;
 
 import edu.nju.proticket.model.Order;
+import edu.nju.proticket.service.EventService;
 import edu.nju.proticket.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,8 @@ public class OrderListController {
 
     @Autowired
     private OrderService orderService;
-
+    @Autowired
+    private EventService eventService;
     @RequestMapping(value = "/toMyOrderList", method = RequestMethod.GET)
     public String toMyOrderList(HttpSession session){
         int memberId = (Integer) session.getAttribute(CURRENT_USER_ID);
@@ -49,6 +51,21 @@ public class OrderListController {
     public @ResponseBody List<Order> getOrderList(HttpSession session){
         int memberId = (Integer) session.getAttribute(CURRENT_USER_ID);
         List<Order> list = orderService.getOrderOfMember(memberId);
+        for(int i=0;i<list.size();i++){
+            int id=list.get(i).getEventid();
+            System.out.println(id);
+            String img=eventService.getEvent(id).getImgUrl();
+            list.get(i).setImgUrl(img);
+        }
+        for(int i=0;i<list.size();i++){
+            for(int t=0;t<list.size()-i-1;t++){
+                if(list.get(t).getTimestamp().before(list.get(t+1).getTimestamp())){
+                    Order temp=list.get(t);
+                    list.set(t,list.get(t+1));
+                    list.set(t+1,temp);
+                    }
+            }
+        }
         return list;
     }
 
