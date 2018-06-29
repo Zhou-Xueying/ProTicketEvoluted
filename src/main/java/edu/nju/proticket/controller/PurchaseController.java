@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -55,12 +56,12 @@ public class PurchaseController {
 //        return "pay";
 //    }
 
-    @RequestMapping(value="/makeOrderWithoutSeatChoice")
+    @RequestMapping(value="/makeOrderWithoutSeatChoice",method = RequestMethod.POST)
     public String makeOrder(@RequestParam("memberid") Integer memberId,
                             @RequestParam("eventid") String eventId,
                             @RequestParam("venueid") String venueId,
                             @RequestParam("ticketnumber") String ticketNum,
-                            @RequestParam("price") String price, Model model){
+                            @RequestParam("price") String price){//}, Model model){
         Event event = eventService.getEvent(Integer.parseInt(eventId));
         Order order = new Order();
         order.setOrderid(CreateId.createOrderId(memberId));
@@ -78,7 +79,7 @@ public class PurchaseController {
         order.setTitle(event.getTitle());
         order.setDatetime(event.getTime());
         orderService.makeOrder(order);
-        model.addAttribute("order",order);
+        //model.addAttribute("order",order);
         return "";
     }
 

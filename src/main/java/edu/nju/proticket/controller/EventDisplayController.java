@@ -98,6 +98,7 @@ public class EventDisplayController {
         event.setPrice5(Integer.parseInt(request.getParameter("price5")));
         event.setType(request.getParameter("type"));
         String time =request.getParameter("time");
+        event.setExpanded(request.getParameter("expanded"));
         System.out.println(time);
         time = time + ":00";
         Timestamp timestamp = Timestamp.valueOf(time);

@@ -301,7 +301,7 @@
         dd.setAttribute("style",cssText);
 
         var a1 = document.createElement("a");
-        a1.setAttribute("href","toShowEventInfo.form?eventId=\"+eventId);
+        a1.setAttribute("href","toShowEventInfo.form?eventId="+eventId);
         var span = document.createElement("span");
         span.setAttribute("style","font-size:20px");
 //        var cityAndTitle = "【"+city+"】"+title;

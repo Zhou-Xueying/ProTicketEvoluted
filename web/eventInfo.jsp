@@ -153,15 +153,20 @@
                 </div>
                 <br>
             </div>
-            <div class="row main-container-row" style="margin-top: 20px;background: white;">
-                <nav class="navbar navbar-default col-md-5" role="navigation">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;&nbsp;演出介绍：</a>
-
+            <div class="row main-container-row" style="margin-top: 20px;margin-bottom: 20px;background: white;">
+                <div id="intro_panel" style="margin-left: 5% ;width: 90%">
+                    <div class="intro-main-row">
+                        <div class="panel panel-info" style="border: none;">
+                            <div class="panel-heading" style="background-color: white">
+                                <h3 class="panel-title" style="color: #1abc9c;font-size: 25px;">&nbsp;&nbsp;&nbsp;&nbsp;演出介绍</h3>
+                            </div>
+                            <div class="panel-body" style="font-size: 18px">
+                                <ul id="txt_content">
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -213,7 +218,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var url = location.search; //获取url中"?"符后的字串
+        var url = location.search;
         var theRequest = new Object();
         if (url.indexOf("?") !== -1){
             var str = url.substr(1);
@@ -244,12 +249,15 @@
                 var price4 = data.price4;
                 var price5 = data.price5;
                 var imgUrl = data.imgUrl;
-                addEventDiv(eventId, imgUrl, city, title, description, venueName, venueId, time, price1, price2, price3, price4, price5);
+                var expanded = data.expanded;
+                addEventDiv(eventId, imgUrl, city, title, description, venueName, venueId, time, price1, price2, price3, price4, price5, expanded);
+                var button = document.getElementsByClassName("price-button")[0];
+                button.click();
             }
         });
     });
 
-    function addEventDiv(eventId, imgUrl, city, title, description, venueName, venueId, time, price1, price2, price3, price4, price5){
+    function addEventDiv(eventId, imgUrl, city, title, description, venueName, venueId, time, price1, price2, price3, price4, price5, expanded){
 
         var back = document.getElementsByClassName("content container")[0];
         back.setAttribute("style","background-image: url("+imgUrl+")");
@@ -330,8 +338,11 @@
             button.innerHTML = priceArray[i]+" 元";
             ddd.appendChild(button);
         }
+
         price.appendChild(ddd);
 
+        var content = document.getElementById("txt_content");
+        content.innerHTML = expanded;
     }
 
     Date.prototype.format = function(format) {
@@ -398,15 +409,34 @@
         canceltip();
     }
     function successpay() {
+
         var pay = document.getElementById("js-preorder-btn");
         pay.setAttribute("style","color: red;font-size: 20px;display: inline-block");
         var logged = '${!empty(sessionScope.CURRENT_USER_NAME)}';
         console.log(logged);
+        var ticketnumber = document.getElementById("buy-num").getAttribute("value");
+        var price = document.getElementById("sumpay").innerHTML.split("&nbsp;")[0]/ticketnumber;
+        if(ticketnumber)
         if(logged=="true"){
-            
+            var memberid = '${sessionScope.CURRENT_USER_ID}';
+            var eventid = location.search.split("=")[1];
+            var venueid = "1000003";
+            var ticketnumber = document.getElementById("buy-num").getAttribute("value");
+            var price = document.getElementById("sumpay").innerHTML.split("&nbsp;")[0]/ticketnumber;
+            $.ajax({
+                type: "POST",
+                url: "makeOrderWithoutSeatChoice.form",
+                dataType: 'json',
+                data: {'memberid':memberid,'eventid':eventid,'venueid':venueid,'ticketnumber':ticketnumber,'price':price},
+            })
             pay.innerHTML = "&nbsp;&nbsp;你已支付成功！";
         }
         else{
+            var a2 = document.createElement("a2");
+            a2.setAttribute("data-toggle","modal");
+            a2.setAttribute("data-target","#loginModal");
+            pay.appendChild(a2);
+            a2.click();
         }
     }
     function canceltip(){

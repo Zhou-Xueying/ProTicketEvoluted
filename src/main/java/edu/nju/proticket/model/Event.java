@@ -21,6 +21,7 @@ public class Event {
     private int price4;
     private int price5;
     private String imgUrl;
+    private String expanded;
 
     @Id
     @Column(name = "eventid")
@@ -173,6 +174,16 @@ public class Event {
         this.imgUrl = imgUrl;
     }
 
+    @Basic
+    @Column(name = "expanded")
+    public String getExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(String expanded) {
+        this.expanded = expanded;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -195,6 +206,7 @@ public class Event {
         if (venueName != null ? !venueName.equals(event.venueName) : event.venueName != null) return false;
         if (description != null ? !description.equals(event.description) : event.description != null) return false;
         if (imgUrl != null ? !imgUrl.equals(event.imgUrl) : event.imgUrl != null) return false;
+        if (expanded != null ? !expanded.equals(event.expanded) : event.expanded != null) return false;
 
         return true;
     }
@@ -216,6 +228,7 @@ public class Event {
         result = 31 * result + price4;
         result = 31 * result + price5;
         result = 31 * result + (imgUrl != null ? imgUrl.hashCode() : 0);
+        result = 31 * result + (expanded != null ? expanded.hashCode() : 0);
         return result;
     }
 }
