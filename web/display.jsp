@@ -133,7 +133,7 @@
     <div id="box">
         <div class="slide">
             <ul>
-                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/1.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=145"><img src="static/images/1.jpg" alt=""></a></li>
                 <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/2.jpg" alt=""></a></li>
                 <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/3.jpg" alt=""></a></li>
                 <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/5.jpg" alt=""></a></li>

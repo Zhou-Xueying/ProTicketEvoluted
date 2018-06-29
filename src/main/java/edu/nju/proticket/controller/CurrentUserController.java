@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -29,15 +30,15 @@ public class CurrentUserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session){
+    public String login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, HttpServletRequest request){
         if(memberService.login(email,password)){
             Member member = memberService.getProfileByEmail(email);
 //            session.setAttribute(CURRENT_USER, member);
             session.setAttribute(CURRENT_USER_ID, member.getUserid());
             session.setAttribute(CURRENT_USER_NAME, member.getUsername());
-            return "login/login_success";
+            return "redirect:"+request.getHeader("Referer").toString();
         }
-        return "login/login_failure";
+        return "redirect:"+request.getHeader("Referer").toString();
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
