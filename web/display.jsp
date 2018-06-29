@@ -200,11 +200,11 @@
             url: "getEventList.form",
             data: theRequest,
             dataType: 'json',
-//            error: function(XMLHttpRequest, textStatus, errorThrown) {
-//                alert(XMLHttpRequest.status);
-//                alert(XMLHttpRequest.readyState);
-//                alert(textStatus);
-//            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus);
+            },
             success: function (data) {
                 console.log("ajax success");
                 var slideBox = document.getElementById("box");
@@ -296,8 +296,7 @@
         dd.setAttribute("style",cssText);
 
         var a1 = document.createElement("a");
-        var jump = "toShowEventInfo.form?eventId="+eventId;
-        a1.setAttribute("href",jump);
+        a1.setAttribute("href","toShowEventInfo.form?eventId=\"+eventId);
         var span = document.createElement("span");
         span.setAttribute("style","font-size:20px");
 //        var cityAndTitle = "【"+city+"】"+title;
