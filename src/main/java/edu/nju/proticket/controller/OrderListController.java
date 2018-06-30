@@ -27,7 +27,9 @@ public class OrderListController {
         int memberId = (Integer) session.getAttribute(CURRENT_USER_ID);
         List<Order> list = orderService.getOrderOfMember(memberId);
         int page=1;
-        int totalUsers =list.size();
+        int totalUsers=0;
+        if(list!=null){
+        totalUsers =list.size();}
         int usersPerPage=5;
         int totalPages = totalUsers % usersPerPage == 0 ? totalUsers / usersPerPage : totalUsers / usersPerPage + 1;
         int beginIndex = (page - 1) * usersPerPage;
