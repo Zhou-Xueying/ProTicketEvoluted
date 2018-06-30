@@ -183,7 +183,7 @@
 
         var p1 = document.createElement("p");
         var span1 = document.createElement("span");
-        span1.innerHTML = "场次：   " + time+  "元&emsp;&emsp;&emsp;&thinsp;订单时间："+times;
+        span1.innerHTML = "场次：   " + time+  "&emsp;&emsp;&emsp;&emsp;&emsp;&thinsp;&thinsp;订单时间："+times;
         p1.appendChild(span1);
         dd.appendChild(p1);
 
