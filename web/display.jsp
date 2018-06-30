@@ -134,10 +134,10 @@
         <div class="slide">
             <ul>
                 <li class="revolve-li"><a href="toShowEventInfo.form?eventId=145"><img src="static/images/1.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/2.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/3.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/5.jpg" alt=""></a></li>
-                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=20"><img src="static/images/6.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=146"><img src="static/images/2.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=147"><img src="static/images/3.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=148"><img src="static/images/4.jpg" alt=""></a></li>
+                <li class="revolve-li"><a href="toShowEventInfo.form?eventId=149"><img src="static/images/5.png" alt=""></a></li>
             </ul>
             <div class="arraw">
                 <a href="javascript:;" class="next"></a>
