@@ -149,14 +149,16 @@
                     var time = (new Date(parseFloat(dateTime))).format("yyyy-MM-dd hh:mm:ss");
                     var status = data[i].condition;
                     var imgUrl = data[i].imgUrl;
-                    addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status, imgUrl);
+                    var timestamp=data[i].timestamp;
+                    var times=(new Date(parseFloat(timestamp))).format("yyyy-MM-dd hh:mm:ss");
+                    addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status, imgUrl,times);
                 }
 
             }
         });
     });
 
-    function addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status, imgUrl){
+    function addEventDiv(orderId, title, time, price, ticketNum, totalPrice, status, imgUrl,times){
 
         var dl = document.getElementById("order-dl");
         var dd = document.createElement("dd");
@@ -181,7 +183,7 @@
 
         var p1 = document.createElement("p");
         var span1 = document.createElement("span");
-        span1.innerHTML = "场次：   " + time+ "&emsp;&emsp;&emsp;票面：" + price + "元";
+        span1.innerHTML = "场次：   " + time+  "元&emsp;&emsp;&emsp;&thinsp;订单时间："+times;
         p1.appendChild(span1);
         dd.appendChild(p1);
 
@@ -189,7 +191,7 @@
 
         var p3 = document.createElement("p");
         var span3 = document.createElement("span");
-        span3.innerHTML = "数量：" + ticketNum + "张&emsp;&emsp;&emsp;&thinsp; "+"总价：" + totalPrice + "元";
+        span3.innerHTML = "数量：" + ticketNum + "张&emsp;&emsp;&emsp;&thinsp; "+"总价：" + totalPrice + "元&emsp;&emsp;&emsp;票面：" + price ;
         p3.appendChild(span3);
         dd.appendChild(p3);
         //
